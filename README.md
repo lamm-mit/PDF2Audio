@@ -79,6 +79,13 @@ To run the PDF2Audio app:
 
 [lamm-mit/PDF2Audio](https://huggingface.co/spaces/lamm-mit/PDF2Audio)
 
+## Example result
+
+<audio controls>
+  <source src="SciAgents discovery summary - example.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
 ## Note
 
 This app requires an OpenAI API key to function. 
