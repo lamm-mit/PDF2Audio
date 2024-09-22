@@ -20,7 +20,7 @@ This code can be used to convert PDFs into audio podcasts, lectures, summaries, 
 
 ## Access via 🤗 Hugging Face Spaces
 
-[lamm-mit/PDF2Audio]{https://huggingface.co/spaces/lamm-mit/PDF2Audio}
+[lamm-mit/PDF2Audio](https://huggingface.co/spaces/lamm-mit/PDF2Audio)
 
 ## Note
 
