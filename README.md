@@ -81,7 +81,7 @@ To run the PDF2Audio app:
 
 ## Example result
 
-![Sample audio produced by the code]([https://user-images.githubusercontent.com/your-username/your-repo/path-to-audio-file.mp3](https://raw.githubusercontent.com/lamm-mit/PDF2Audio/main/SciAgents%20discovery%20summary%20-%20example.mp3))
+![Sample audio produced by the code](https://raw.githubusercontent.com/lamm-mit/PDF2Audio/main/SciAgents%20discovery%20summary%20-%20example.mp3)
 
 ## Note
 
