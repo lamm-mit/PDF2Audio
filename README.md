@@ -81,10 +81,7 @@ To run the PDF2Audio app:
 
 ## Example result
 
-<audio controls>
-  <source src="https://raw.githubusercontent.com/lamm-mit/PDF2Audio/main/SciAgents%20discovery%20summary%20-%20example.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+![Sample audio produced by the code]([https://user-images.githubusercontent.com/your-username/your-repo/path-to-audio-file.mp3](https://raw.githubusercontent.com/lamm-mit/PDF2Audio/main/SciAgents%20discovery%20summary%20-%20example.mp3))
 
 ## Note
 
