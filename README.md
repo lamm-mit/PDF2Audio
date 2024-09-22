@@ -2,7 +2,7 @@
 
 This code can be used to convert PDFs into audio podcasts, lectures, summaries, and more. It uses OpenAI's GPT models for text generation and text-to-speech conversion.
 
-![logo](https://github.com/user-attachments/assets/b70b8a67-dd82-4af9-a736-87b1990f593d)
+![image](https://github.com/user-attachments/assets/ef8a5e84-d532-4e0e-b08b-fb7be2f98469)
 
 ## Features
 
