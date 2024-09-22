@@ -1,18 +1,8 @@
----
-title: Pdf2audio
-emoji: 📚
-colorFrom: yellow
-colorTo: pink
-sdk: gradio
-sdk_version: 4.44.0
-app_file: app.py
-pinned: false
-license: apache-2.0
----
-
 # PDF to Audio Converter
 
-This Gradio app converts PDFs into audio podcasts, lectures, summaries, and more. It uses OpenAI's GPT models for text generation and text-to-speech conversion.
+This code can be used to convert PDFs into audio podcasts, lectures, summaries, and more. It uses OpenAI's GPT models for text generation and text-to-speech conversion.
+
+![logo](https://github.com/user-attachments/assets/b70b8a67-dd82-4af9-a736-87b1990f593d)
 
 ## Features
 
@@ -48,10 +38,10 @@ This project was inspired by and based on the code available at [https://github.
 }
 @article{buehler2024graphreasoning,
     title={Accelerating Scientific Discovery with Generative Knowledge Extraction, Graph-Based Representation, and Multimodal Intelligent Graph Reasoning},
-	author={Markus J. Buehler},
-	journal={Machine Learning: Science and Technology},
-	year={2024},
-	url={http://iopscience.iop.org/article/10.1088/2632-2153/ad7228},
+    author={Markus J. Buehler},
+    journal={Machine Learning: Science and Technology},
+    year={2024},
+    url={http://iopscience.iop.org/article/10.1088/2632-2153/ad7228},
 }
 ```
 
