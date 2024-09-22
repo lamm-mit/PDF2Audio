@@ -18,6 +18,10 @@ This code can be used to convert PDFs into audio podcasts, lectures, summaries, 
 3. Customize the instructions if needed
 4. Click "Generate Audio" to create your audio content
 
+## Access via 🤗 Hugging Face Spaces
+
+[lamm-mit/PDF2Audio]{https://huggingface.co/spaces/lamm-mit/PDF2Audio}
+
 ## Note
 
 This app requires an OpenAI API key to function. 
