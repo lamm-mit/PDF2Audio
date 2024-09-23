@@ -323,30 +323,35 @@ def generate_audio(
     scratch_pad_instructions: str = '',
     prelude_dialog: str = '',
     podcast_dialog_instructions: str = '',
-) -> bytes:
+    edited_transcript: str = None,
+    user_feedback: str = None,
+    original_text: str = None,
+    debug = False,
+) -> tuple:
     # Validate API Key
     if not os.getenv("OPENAI_API_KEY") and not openai_api_key:
         raise gr.Error("OpenAI API key is required")
 
-    combined_text = ""
+    combined_text = original_text or ""
 
-    # Loop through each uploaded file and extract text
-    for file in files:
-        with Path(file).open("rb") as f:
-            reader = PdfReader(f)
-            text = "\n\n".join([page.extract_text() for page in reader.pages if page.extract_text()])
-            combined_text += text + "\n\n"  # Add separation between different files' texts
+    # If there's no original text, extract it from the uploaded files
+    if not combined_text:
+        for file in files:
+            with Path(file).open("rb") as f:
+                reader = PdfReader(f)
+                text = "\n\n".join([page.extract_text() for page in reader.pages if page.extract_text()])
+                combined_text += text + "\n\n"
 
     # Configure the LLM based on selected model and api_base
     @retry(retry=retry_if_exception_type(ValidationError))
     @conditional_llm(model=text_model, api_base=api_base, api_key=openai_api_key)
     def generate_dialogue(text: str, intro_instructions: str, text_instructions: str, scratch_pad_instructions: str, 
                           prelude_dialog: str, podcast_dialog_instructions: str,
-                          ) -> Dialogue:
+                          edited_transcript: str = None, user_feedback: str = None, ) -> Dialogue:
         """
         {intro_instructions}
         
-        Here is the input text you will be working with:
+        Here is the original input text:
         
         <input_text>
         {text}
@@ -363,8 +368,20 @@ def generate_audio(
         <podcast_dialogue>
         {podcast_dialog_instructions}
         </podcast_dialogue>
+        {edited_transcript}{user_feedback}
         """
 
+    instruction_improve='Based on the original text, please generate an improved version of the dialogue by incorporating the edits, comments and feedback.'
+    edited_transcript_processed="\nPreviously generated edited transcript, with specific edits and comments that I want you to carefully address:\n"+"<edited_transcript>\n"+edited_transcript+"</edited_transcript>" if edited_transcript !="" else ""
+    user_feedback_processed="\nOverall user feedback:\n\n"+user_feedback if user_feedback !="" else ""
+
+    if edited_transcript_processed.strip()!='' or user_feedback_processed.strip()!='':
+        user_feedback_processed="<requested_improvements>"+user_feedback_processed+"\n\n"+instruction_improve+"</requested_improvements>" 
+    
+    if debug:
+        logger.info (edited_transcript_processed)
+        logger.info (user_feedback_processed)
+    
     # Generate the dialogue using the LLM
     llm_output = generate_dialogue(
         combined_text,
@@ -372,12 +389,14 @@ def generate_audio(
         text_instructions=text_instructions,
         scratch_pad_instructions=scratch_pad_instructions,
         prelude_dialog=prelude_dialog,
-        podcast_dialog_instructions=podcast_dialog_instructions
+        podcast_dialog_instructions=podcast_dialog_instructions,
+        edited_transcript=edited_transcript_processed,
+        user_feedback=user_feedback_processed
     )
 
+    # Generate audio from the transcript
     audio = b""
     transcript = ""
-
     characters = 0
 
     with cf.ThreadPoolExecutor() as executor:
@@ -413,14 +432,32 @@ def generate_audio(
         if os.path.isfile(file) and time.time() - os.path.getmtime(file) > 24 * 60 * 60:
             os.remove(file)
 
-    return temporary_file.name, transcript
+    return temporary_file.name, transcript, combined_text
 
 def validate_and_generate_audio(*args):
     files = args[0]
     if not files:
-        return None, None, "Please upload at least one PDF file before generating audio."
-    audio_file, transcript = generate_audio(*args)
-    return audio_file, transcript, None
+        return None, None, None, "Please upload at least one PDF file before generating audio."
+    try:
+        audio_file, transcript, original_text = generate_audio(*args)
+        return audio_file, transcript, original_text, None  # Return None as the error when successful
+    except Exception as e:
+        # If an error occurs during generation, return None for the outputs and the error message
+        return None, None, None, str(e)
+
+def edit_and_regenerate(edited_transcript, user_feedback, *args):
+    # Replace the original transcript and feedback in the args with the new ones
+    #new_args = list(args)
+    #new_args[-2] = edited_transcript  # Update edited transcript
+    #new_args[-1] = user_feedback  # Update user feedback
+    return validate_and_generate_audio(*new_args)
+
+# New function to handle user feedback and regeneration
+def process_feedback_and_regenerate(feedback, *args):
+    # Add user feedback to the args
+    new_args = list(args)
+    new_args.append(feedback)  # Add user feedback as a new argument
+    return validate_and_generate_audio(*new_args)
 
 with gr.Blocks(title="PDF to Audio", css="""
     #header {
@@ -542,36 +579,87 @@ with gr.Blocks(title="PDF to Audio", css="""
                 value=INSTRUCTION_TEMPLATES["podcast"]["dialog"],
                 info="Provide the instructions for generating the presentation or podcast dialogue.",
             )
-    
+
     audio_output = gr.Audio(label="Audio", format="mp3")
     transcript_output = gr.Textbox(label="Transcript", lines=20, show_copy_button=True)
+    original_text_output = gr.Textbox(label="Original Text", lines=10, visible=False)
     error_output = gr.Textbox(visible=False)  # Hidden textbox to store error message
 
+    use_edited_transcript = gr.Checkbox(label="Use Edited Transcript (check if you want to make edits to the initially generated transcript)", value=False)
+    edited_transcript = gr.Textbox(label="Edit Transcript Here. E.g., mark edits in the text with clear instructions. E.g., '[ADD DEFINITION OF MATERIOMICS]'.", lines=20, visible=False,
+                                   show_copy_button=True, interactive=False)
+
+    user_feedback = gr.Textbox(label="Provide Feedback or Notes", lines=10, #placeholder="Enter your feedback or notes here..."
+                              )
+    regenerate_btn = gr.Button("Regenerate Audio with Edits and Feedback")
+    # Function to update the interactive state of edited_transcript
+    def update_edit_box(checkbox_value):
+        return gr.update(interactive=checkbox_value, lines=20 if checkbox_value else 20, visible=True if checkbox_value else False)
+
+    # Update the interactive state of edited_transcript when the checkbox is toggled
+    use_edited_transcript.change(
+        fn=update_edit_box,
+        inputs=[use_edited_transcript],
+        outputs=[edited_transcript]
+    )
     # Update instruction fields when template is changed
     template_dropdown.change(
         fn=update_instructions,
         inputs=[template_dropdown],
         outputs=[intro_instructions, text_instructions, scratch_pad_instructions, prelude_dialog, podcast_dialog_instructions]
     )
-
+    
     submit_btn.click(
         fn=validate_and_generate_audio,
         inputs=[
             files, openai_api_key, text_model, audio_model, 
             speaker_1_voice, speaker_2_voice, api_base,
             intro_instructions, text_instructions, scratch_pad_instructions, 
-            prelude_dialog, podcast_dialog_instructions
+            prelude_dialog, podcast_dialog_instructions, 
+            edited_transcript,  # placeholder for edited_transcript
+            user_feedback,  # placeholder for user_feedback
         ],
-        outputs=[
-            audio_output, 
-            transcript_output,
-            error_output
-        ]
-        ).then(
-            fn=lambda error: gr.Warning(error) if error else None,
-            inputs=[error_output],
-            outputs=[]
-        )
+        outputs=[audio_output, transcript_output, original_text_output, error_output]
+    ).then(
+        fn=lambda audio, transcript, original_text, error: (
+            transcript if transcript else "",
+            error if error else None
+        ),
+        inputs=[audio_output, transcript_output, original_text_output, error_output],
+        outputs=[edited_transcript, error_output]
+    ).then(
+        fn=lambda error: gr.Warning(error) if error else None,
+        inputs=[error_output],
+        outputs=[]
+    )
+
+    regenerate_btn.click(
+        fn=lambda use_edit, edit, *args: validate_and_generate_audio(
+            *args[:12],  # All inputs up to podcast_dialog_instructions
+            edit if use_edit else "",  # Use edited transcript if checkbox is checked, otherwise empty string
+            *args[12:]  # user_feedback and original_text_output
+        ),
+        inputs=[
+            use_edited_transcript, edited_transcript,
+            files, openai_api_key, text_model, audio_model, 
+            speaker_1_voice, speaker_2_voice, api_base,
+            intro_instructions, text_instructions, scratch_pad_instructions, 
+            prelude_dialog, podcast_dialog_instructions,
+            user_feedback, original_text_output
+        ],
+        outputs=[audio_output, transcript_output, original_text_output, error_output]
+    ).then(
+        fn=lambda audio, transcript, original_text, error: (
+            transcript if transcript else "",
+            error if error else None
+        ),
+        inputs=[audio_output, transcript_output, original_text_output, error_output],
+        outputs=[edited_transcript, error_output]
+    ).then(
+        fn=lambda error: gr.Warning(error) if error else None,
+        inputs=[error_output],
+        outputs=[]
+    )
 
     # Add README content at the bottom
     gr.Markdown("---")  # Horizontal line to separate the interface from README
