@@ -11,7 +11,11 @@ This code can be used to convert PDFs into audio podcasts, lectures, summaries, 
 - Customize text generation and audio models
 - Select different voices for speakers
 
-## Installation
+## Use in Colab
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/lamm-mit/PDF2Audio/blob/main/PDF2Audio.ipynb)
+
+## Local Installation
 
 Follow these steps to set up PDF2Audio on your local machine using Conda:
 
