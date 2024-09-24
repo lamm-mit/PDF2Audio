@@ -214,6 +214,182 @@ Naturally summarize the main insights and takeaways from the short summary. This
 The summary should have around 256 words.
 """,
     },
+
+################# PODCAST French ##################
+"podcast (French)": {
+    "intro": """Votre tâche consiste à prendre le texte fourni et à le transformer en un dialogue de podcast vivant, engageant et informatif, dans le style de NPR. Le texte d'entrée peut être désorganisé ou non structuré, car il peut provenir de diverses sources telles que des fichiers PDF ou des pages web.
+
+Ne vous inquiétez pas des problèmes de formatage ou des informations non pertinentes ; votre objectif est d'extraire les points clés, d'identifier les définitions et les faits intéressants qui pourraient être discutés dans un podcast.
+
+Définissez soigneusement tous les termes utilisés pour un public large.
+""",
+    "text_instructions": "Tout d'abord, lisez attentivement le texte d'entrée et identifiez les principaux sujets, points clés et faits ou anecdotes intéressants. Réfléchissez à la manière dont vous pourriez présenter ces informations de manière amusante et engageante, convenant à une présentation de haute qualité.",
+    "scratch_pad": """Réfléchissez à des moyens créatifs pour discuter des principaux sujets et points clés que vous avez identifiés dans le texte d'entrée. Envisagez d'utiliser des analogies, des exemples, des techniques de narration ou des scénarios hypothétiques pour rendre le contenu plus accessible et attrayant pour les auditeurs.
+
+Gardez à l'esprit que votre podcast doit être accessible à un large public, donc évitez d'utiliser trop de jargon ou de supposer une connaissance préalable du sujet. Si nécessaire, trouvez des moyens d'expliquer brièvement les concepts complexes en termes simples.
+
+Utilisez votre imagination pour combler les lacunes du texte d'entrée ou pour poser des questions stimulantes qui pourraient être explorées dans le podcast. L'objectif est de créer un dialogue informatif et divertissant, donc n'hésitez pas à faire preuve de créativité dans votre approche.
+
+Définissez clairement tous les termes utilisés et prenez le temps d'expliquer le contexte.
+
+Écrivez ici vos idées de brainstorming et une esquisse générale pour le dialogue du podcast. Assurez-vous de noter les principaux points et enseignements que vous souhaitez réitérer à la fin.
+
+Faites en sorte que ce soit amusant et captivant.
+""",
+    "prelude": """Maintenant que vous avez réfléchi à des idées et créé une esquisse générale, il est temps d'écrire le dialogue réel du podcast. Visez un flux naturel et conversationnel entre l'hôte et tout invité. Intégrez les meilleures idées de votre session de brainstorming et assurez-vous d'expliquer tous les sujets complexes de manière compréhensible.
+""",
+    "dialog": """Écrivez ici un dialogue de podcast très long, captivant et informatif, basé sur les points clés et les idées créatives que vous avez développés lors de la session de brainstorming. Utilisez un ton conversationnel et incluez tout contexte ou explication nécessaire pour rendre le contenu accessible à un public général.
+
+Ne créez jamais de noms fictifs pour les hôtes et les invités, mais rendez cela engageant et immersif pour les auditeurs. N'incluez pas de marqueurs entre crochets comme [Hôte] ou [Invité]. Conceptionnez votre sortie pour être lue à haute voix – elle sera directement convertie en audio.
+
+Faites en sorte que le dialogue soit aussi long et détaillé que possible, tout en restant sur le sujet et en maintenant un flux engageant. Utilisez toute votre capacité de production pour créer l'épisode de podcast le plus long possible, tout en communiquant les informations clés du texte d'entrée de manière divertissante.
+
+À la fin du dialogue, l'hôte et les invités doivent naturellement résumer les principales idées et enseignements de leur discussion. Cela doit découler naturellement de la conversation, en réitérant les points clés de manière informelle et conversationnelle. Évitez de donner l'impression qu'il s'agit d'un récapitulatif évident – l'objectif est de renforcer les idées centrales une dernière fois avant de conclure.
+
+Le podcast doit comporter environ 20 000 mots.
+""",
+},
+
+################# PODCAST GERMAN ##################
+"podcast (German)": {
+    "intro": """Deine Aufgabe ist es, den bereitgestellten Text in einen lebendigen, fesselnden und informativen Podcast-Dialog im Stil von NPR zu verwandeln. Der Eingabetext kann unstrukturiert oder chaotisch sein, da er aus verschiedenen Quellen wie PDFs oder Webseiten stammen kann.
+
+Mach dir keine Sorgen über Formatierungsprobleme oder irrelevante Informationen; dein Ziel ist es, die wichtigsten Punkte zu extrahieren, Definitionen und interessante Fakten zu identifizieren, die in einem Podcast besprochen werden könnten.
+
+Definiere alle verwendeten Begriffe sorgfältig für ein breites Publikum.
+""",
+    "text_instructions": "Lies zuerst den Eingabetext sorgfältig durch und identifiziere die Hauptthemen, Schlüsselpunkte und interessante Fakten oder Anekdoten. Überlege, wie du diese Informationen auf unterhaltsame und ansprechende Weise präsentieren könntest, sodass sie für eine hochwertige Präsentation geeignet sind.",
+    "scratch_pad": """Denke kreativ darüber nach, wie du die Hauptthemen und Schlüsselpunkte, die du im Eingabetext identifiziert hast, diskutieren könntest. Verwende Analogien, Beispiele, Erzähltechniken oder hypothetische Szenarien, um den Inhalt für die Zuhörer nachvollziehbarer und ansprechender zu gestalten.
+
+Behalte im Hinterkopf, dass dein Podcast einem breiten Publikum zugänglich sein sollte, daher vermeide zu viel Fachjargon oder die Annahme von Vorwissen über das Thema. Falls nötig, überlege dir Möglichkeiten, um komplexe Konzepte kurz und einfach zu erklären.
+
+Nutze deine Fantasie, um Lücken im Eingabetext zu füllen oder um nachdenklich stimmende Fragen zu formulieren, die im Podcast erforscht werden könnten. Das Ziel ist es, einen informativen und unterhaltsamen Dialog zu schaffen, daher kannst du bei deinem Ansatz kreativ sein.
+
+Definiere alle verwendeten Begriffe klar und nimm dir die Zeit, den Hintergrund zu erläutern.
+
+Schreibe deine Brainstorming-Ideen und eine grobe Gliederung für den Podcast-Dialog hier auf. Achte darauf, die wichtigsten Erkenntnisse und Aussagen, die du am Ende wiederholen möchtest, zu notieren.
+
+Sorge dafür, dass es unterhaltsam und spannend ist.
+""",
+    "prelude": """Nun, da du Ideen gesammelt und eine grobe Gliederung erstellt hast, ist es an der Zeit, den eigentlichen Podcast-Dialog zu schreiben. Strebe einen natürlichen, konversationellen Fluss zwischen dem Moderator und etwaigen Gästen an. Nutze die besten Ideen aus deiner Brainstorming-Sitzung und erkläre alle komplexen Themen auf eine leicht verständliche Weise.
+""",
+    "dialog": """Schreibe hier einen sehr langen, fesselnden und informativen Podcast-Dialog, basierend auf den wichtigsten Punkten und kreativen Ideen, die du während der Brainstorming-Sitzung erarbeitet hast. Verwende einen konversationellen Ton und füge alle notwendigen Kontexte oder Erklärungen hinzu, um den Inhalt für ein allgemeines Publikum zugänglich zu machen.
+
+Verwende niemals erfundene Namen für die Moderatoren und Gäste, aber gestalte es zu einem fesselnden und immersiven Erlebnis für die Zuhörer. Verwende keine Platzhalter wie [Moderator] oder [Gast]. Dein Output wird direkt in Audio umgewandelt, daher entwerfe den Dialog so, dass er laut vorgelesen werden kann.
+
+Gestalte den Dialog so lang und detailliert wie möglich, bleibe dabei jedoch immer beim Thema und erhalte einen flüssigen, ansprechenden Verlauf. Verwende deine volle Output-Kapazität, um die längste mögliche Podcast-Episode zu erstellen, während du die wichtigsten Informationen aus dem Eingabetext auf unterhaltsame Weise vermittelst.
+
+Am Ende des Dialogs sollen der Moderator und die Gäste die wichtigsten Erkenntnisse und Aussagen ihres Gesprächs auf natürliche Weise zusammenfassen. Dies sollte organisch aus der Konversation hervorgehen und die wichtigsten Punkte in einem lockeren, gesprächigen Stil wiederholen. Vermeide es, wie eine offensichtliche Zusammenfassung zu klingen – das Ziel ist es, die zentralen Ideen ein letztes Mal zu verstärken, bevor der Podcast endet.
+
+Der Podcast sollte etwa 20.000 Wörter umfassen.
+""",
+    },
+    
+################# PODCAST SPANISH ##################
+"podcast (Spanish)": {
+    "intro": """Tu tarea es tomar el texto de entrada proporcionado y convertirlo en un diálogo de podcast animado, atractivo e informativo, al estilo de NPR. El texto de entrada puede estar desordenado o poco estructurado, ya que podría provenir de diversas fuentes como archivos PDF o páginas web.
+
+No te preocupes por los problemas de formato o por la información irrelevante; tu objetivo es extraer los puntos clave, identificar definiciones y hechos interesantes que podrían discutirse en un podcast.
+
+Define cuidadosamente todos los términos utilizados para una audiencia amplia.
+""",
+    "text_instructions": "Primero, lee detenidamente el texto de entrada e identifica los temas principales, los puntos clave y cualquier hecho o anécdota interesante. Piensa en cómo podrías presentar esta información de una manera divertida y atractiva, adecuada para una presentación de alta calidad.",
+    "scratch_pad": """Piensa de manera creativa sobre cómo discutir los temas principales y los puntos clave que has identificado en el texto de entrada. Considera usar analogías, ejemplos, técnicas narrativas o escenarios hipotéticos para hacer que el contenido sea más comprensible y atractivo para los oyentes.
+
+Ten en cuenta que tu podcast debe ser accesible para una audiencia general, así que evita usar demasiado jerga técnica o asumir que la audiencia tiene conocimientos previos del tema. Si es necesario, piensa en formas de explicar brevemente cualquier concepto complejo en términos sencillos.
+
+Usa tu imaginación para llenar los vacíos en el texto de entrada o para formular preguntas provocadoras que podrían explorarse en el podcast. El objetivo es crear un diálogo informativo y entretenido, por lo que puedes ser creativo en tu enfoque.
+
+Define claramente todos los términos utilizados y asegúrate de explicar el trasfondo.
+
+Escribe tus ideas de brainstorming y un esquema general del diálogo del podcast aquí. Asegúrate de anotar los puntos clave y las conclusiones que deseas reiterar al final.
+
+Asegúrate de que sea divertido y emocionante.
+""",
+    "prelude": """Ahora que has realizado una lluvia de ideas y has creado un esquema general, es hora de escribir el diálogo real del podcast. Apunta a un flujo natural y conversacional entre el presentador y cualquier invitado. Incorpora las mejores ideas de tu sesión de lluvia de ideas y asegúrate de explicar cualquier tema complejo de una manera fácil de entender.
+""",
+    "dialog": """Escribe aquí un diálogo de podcast muy largo, atractivo e informativo, basado en los puntos clave y las ideas creativas que se te ocurrieron durante la sesión de brainstorming. Usa un tono conversacional e incluye el contexto o las explicaciones necesarias para que el contenido sea accesible a una audiencia general.
+
+Nunca uses nombres inventados para los presentadores e invitados, pero haz que sea una experiencia atractiva e inmersiva para los oyentes. No incluyas ningún marcador de posición entre corchetes como [Presentador] o [Invitado]. Diseña tu salida para que sea leída en voz alta, ya que se convertirá directamente en audio.
+
+Haz el diálogo lo más largo y detallado posible, manteniéndote en el tema y asegurando un flujo atractivo. Apunta a utilizar toda tu capacidad de salida para crear el episodio de podcast más largo posible, mientras comunicas la información clave del texto de entrada de una manera entretenida.
+
+Al final del diálogo, el presentador y los invitados deben resumir naturalmente las principales ideas y conclusiones de su conversación. Esto debe fluir orgánicamente desde la conversación, reiterando los puntos clave de manera casual y conversacional. Evita que suene como un resumen obvio: el objetivo es reforzar las ideas centrales una última vez antes de finalizar.
+
+El podcast debe tener alrededor de 20,000 palabras.
+""",
+    },
+
+################# PODCAST Portuguese ##################
+"podcast (Portuguese)": {
+    "intro": """Sua tarefa é pegar o texto de entrada fornecido e transformá-lo em um diálogo de podcast animado, envolvente e informativo, no estilo da NPR. O texto de entrada pode ser desorganizado ou não estruturado, pois pode vir de várias fontes, como PDFs ou páginas da web.
+
+Não se preocupe com problemas de formatação ou informações irrelevantes; seu objetivo é extrair os pontos principais, identificar definições e fatos interessantes que possam ser discutidos em um podcast.
+
+Defina cuidadosamente todos os termos usados para um público amplo.
+""",
+    "text_instructions": "Primeiro, leia atentamente o texto de entrada e identifique os principais tópicos, pontos-chave e quaisquer fatos ou anedotas interessantes. Pense em como você poderia apresentar essas informações de maneira divertida e envolvente, adequada para uma apresentação de alta qualidade.",
+    "scratch_pad": """Pense de maneira criativa sobre como discutir os principais tópicos e pontos-chave que você identificou no texto de entrada. Considere usar analogias, exemplos, técnicas de narrativa ou cenários hipotéticos para tornar o conteúdo mais acessível e interessante para os ouvintes.
+
+Tenha em mente que seu podcast deve ser acessível a um público geral, por isso, evite usar jargões técnicos ou presumir que o público tem conhecimento prévio do assunto. Se necessário, pense em maneiras de explicar brevemente qualquer conceito complexo em termos simples.
+
+Use sua imaginação para preencher quaisquer lacunas no texto de entrada ou para criar perguntas instigantes que possam ser exploradas no podcast. O objetivo é criar um diálogo informativo e divertido, então sinta-se à vontade para ser criativo em sua abordagem.
+
+Defina claramente todos os termos utilizados e faça um esforço para explicar o contexto.
+
+Escreva suas ideias de brainstorming e um esboço para o diálogo do podcast aqui. Certifique-se de anotar os principais insights e pontos que deseja reiterar no final.
+
+Certifique-se de que seja divertido e empolgante.
+""",
+    "prelude": """Agora que você já fez um brainstorming de ideias e criou um esboço, é hora de escrever o diálogo real do podcast. Busque um fluxo natural e conversacional entre o apresentador e qualquer convidado. Incorpore as melhores ideias de sua sessão de brainstorming e certifique-se de explicar qualquer tópico complexo de maneira fácil de entender.
+""",
+    "dialog": """Escreva aqui um diálogo de podcast muito longo, envolvente e informativo, com base nos pontos-chave e nas ideias criativas que você criou durante a sessão de brainstorming. Use um tom conversacional e inclua o contexto ou explicações necessárias para tornar o conteúdo acessível a um público geral.
+
+Nunca use nomes inventados para os apresentadores e convidados, mas faça com que seja uma experiência envolvente e imersiva para os ouvintes. Não inclua marcadores de posição como [Apresentador] ou [Convidado]. Desenvolva sua saída de forma que ela seja lida em voz alta – ela será diretamente convertida em áudio.
+
+Faça o diálogo o mais longo e detalhado possível, mantendo-se no tema e garantindo um fluxo envolvente. Use sua capacidade total de produção para criar o episódio de podcast mais longo possível, enquanto comunica as informações principais do texto de entrada de maneira divertida.
+
+No final do diálogo, o apresentador e os convidados devem resumir naturalmente as principais ideias e insights de sua conversa. Isso deve fluir organicamente a partir da conversa, reiterando os pontos-chave de maneira casual e conversacional. Evite soar como um resumo óbvio – o objetivo é reforçar as ideias centrais uma última vez antes de finalizar.
+
+O podcast deve ter cerca de 20.000 palavras.
+""",
+    },
+
+################# PODCAST Hindi ##################
+"podcast (Hindi)": {
+    "intro": """आपका कार्य दिए गए इनपुट टेक्स्ट को लेकर उसे एक जीवंत, आकर्षक और जानकारीपूर्ण पॉडकास्ट वार्तालाप में बदलना है, NPR की शैली में। इनपुट टेक्स्ट असंगठित या अव्यवस्थित हो सकता है, क्योंकि यह विभिन्न स्रोतों जैसे PDFs या वेब पेजों से आ सकता है।
+
+फ़ॉर्मेटिंग समस्याओं या अप्रासंगिक जानकारी की चिंता न करें; आपका उद्देश्य मुख्य बिंदुओं को निकालना, परिभाषाओं और दिलचस्प तथ्यों को पहचानना है जिन्हें पॉडकास्ट में चर्चा की जा सकती है।
+
+सभी उपयोग किए गए शब्दों को सावधानीपूर्वक व्यापक दर्शकों के लिए परिभाषित करें।
+""",
+    "text_instructions": "सबसे पहले, इनपुट टेक्स्ट को ध्यान से पढ़ें और मुख्य विषयों, प्रमुख बिंदुओं और किसी भी दिलचस्प तथ्य या उपाख्यानों की पहचान करें। इस जानकारी को प्रस्तुत करने के बारे में सोचें कि आप इसे एक मज़ेदार, आकर्षक तरीके से कैसे प्रस्तुत कर सकते हैं जो उच्च गुणवत्ता वाली प्रस्तुति के लिए उपयुक्त हो।",
+    "scratch_pad": """मुख्य विषयों और प्रमुख बिंदुओं पर चर्चा करने के रचनात्मक तरीकों के बारे में सोचें जिन्हें आपने इनपुट टेक्स्ट में पहचाना है। उदाहरणों, कहानियों की तकनीकों, या काल्पनिक परिदृश्यों का उपयोग करके सामग्री को श्रोताओं के लिए अधिक सम्बंधित और आकर्षक बनाने पर विचार करें।
+
+ध्यान रखें कि आपका पॉडकास्ट एक सामान्य दर्शक के लिए सुलभ होना चाहिए, इसलिए बहुत अधिक तकनीकी शब्दजाल से बचें या यह न मानें कि विषय का पूर्व ज्ञान है। यदि आवश्यक हो, तो किसी भी जटिल अवधारणा को सरल शब्दों में संक्षेप में समझाने के तरीकों के बारे में सोचें।
+
+अपनी कल्पना का उपयोग करके इनपुट टेक्स्ट में किसी भी अंतराल को भरें या पॉडकास्ट में खोजे जा सकने वाले विचारोत्तेजक सवालों के साथ आएं। उद्देश्य एक जानकारीपूर्ण और मनोरंजक वार्तालाप बनाना है, इसलिए अपने दृष्टिकोण में रचनात्मक होने से न डरें।
+
+सभी उपयोग किए गए शब्दों को स्पष्ट रूप से परिभाषित करें और पृष्ठभूमि समझाने के लिए समय दें।
+
+यहां अपने विचार-मंथन और पॉडकास्ट वार्तालाप के लिए एक मोटा खाका लिखें। सुनिश्चित करें कि आपने उन प्रमुख अंतर्दृष्टियों और निष्कर्षों को नोट किया है जिन्हें आप अंत में दोहराना चाहते हैं।
+
+इसे मजेदार और रोमांचक बनाएं।
+""",
+    "prelude": """अब जब आपने विचार-मंथन किया है और एक मोटा खाका तैयार कर लिया है, तो वास्तविक पॉडकास्ट वार्तालाप लिखने का समय आ गया है। होस्ट और किसी भी अतिथि वक्ता के बीच एक स्वाभाविक, संवादात्मक प्रवाह की दिशा में कार्य करें। अपने विचार-मंथन सत्र से सर्वश्रेष्ठ विचारों को शामिल करें और सुनिश्चित करें कि किसी भी जटिल विषय को आसानी से समझ में आने वाले तरीके से समझाया जाए।
+""",
+    "dialog": """यहां एक बहुत लंबा, आकर्षक और जानकारीपूर्ण पॉडकास्ट वार्तालाप लिखें, जो उन प्रमुख बिंदुओं और रचनात्मक विचारों पर आधारित हो जो आपने विचार-मंथन सत्र के दौरान बनाए थे। एक संवादात्मक शैली का उपयोग करें और सामग्री को एक सामान्य दर्शक के लिए सुलभ बनाने के लिए किसी भी आवश्यक संदर्भ या व्याख्याएं शामिल करें।
+
+होस्ट और अतिथि वक्ताओं के लिए कभी भी काल्पनिक नामों का उपयोग न करें, बल्कि श्रोताओं के लिए इसे एक आकर्षक और immersive अनुभव बनाएं। किसी भी प्रकार के ब्रैकेटेड प्लेसहोल्डर्स जैसे [होस्ट] या [अतिथि] को शामिल न करें। अपनी आउटपुट को इस तरह डिज़ाइन करें कि इसे ज़ोर से पढ़ा जा सके – इसे सीधे ऑडियो में परिवर्तित किया जाएगा।
+
+डायलॉग को यथासंभव लंबा और विस्तृत बनाएं, फिर भी विषय पर बने रहें और प्रवाह को आकर्षक बनाए रखें। अपनी पूरी आउटपुट क्षमता का उपयोग करते हुए यथासंभव लंबे पॉडकास्ट एपिसोड को बनाएं, जबकि फिर भी इनपुट टेक्स्ट से प्रमुख जानकारी को मनोरंजक तरीके से संप्रेषित करें।
+
+वार्तालाप के अंत में, होस्ट और अतिथि वक्ता अपने चर्चा से स्वाभाविक रूप से मुख्य अंतर्दृष्टियों और निष्कर्षों को संक्षेप में प्रस्तुत करें। यह वार्तालाप से स्वाभाविक रूप से प्रवाहित होना चाहिए, अनौपचारिक, संवादात्मक तरीके से प्रमुख बिंदुओं को फिर से स्पष्ट करें। इसे स्पष्ट पुनरावृत्ति की तरह न बनाएं – उद्देश्य केंद्रीय विचारों को एक आखिरी बार सुदृढ़ करना है, इससे पहले कि वार्तालाप समाप्त हो जाए।
+
+पॉडकास्ट में लगभग 20,000 शब्द होने चाहिए।
+""",
+    },
+
 }
 
 # Function to update instruction fields based on template selection
