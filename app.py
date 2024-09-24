@@ -580,7 +580,7 @@ with gr.Blocks(title="PDF to Audio", css="""
                 info="Provide the instructions for generating the presentation or podcast dialogue.",
             )
 
-    audio_output = gr.Audio(label="Audio", format="mp3")
+    audio_output = gr.Audio(label="Audio", format="mp3", interactive=False, autoplay=False)
     transcript_output = gr.Textbox(label="Transcript", lines=20, show_copy_button=True)
     original_text_output = gr.Textbox(label="Original Text", lines=10, visible=False)
     error_output = gr.Textbox(visible=False)  # Hidden textbox to store error message
