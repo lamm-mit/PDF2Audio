@@ -18,6 +18,9 @@ from tenacity import retry, retry_if_exception_type
 
 import re
 
+# import sys
+# logger.configure(handlers=[{"sink": sys.stdout, "level": "DEBUG"}])
+
 def read_readme():
     readme_path = Path("README.md")
     if readme_path.exists():
@@ -28,7 +31,7 @@ def read_readme():
             return content
     else:
         return "README.md not found. Please check the repository for more information."
-        
+
 # Define multiple sets of instruction templates
 INSTRUCTION_TEMPLATES = {
 ################# PODCAST ##################
@@ -434,7 +437,7 @@ def update_instructions(template):
         INSTRUCTION_TEMPLATES[template]["scratch_pad"],
         INSTRUCTION_TEMPLATES[template]["prelude"],
         INSTRUCTION_TEMPLATES[template]["dialog"]
-           )
+    )
 
 import concurrent.futures as cf
 import glob
@@ -453,6 +456,8 @@ from promptic import llm
 from pydantic import BaseModel, ValidationError
 from pypdf import PdfReader
 from tenacity import retry, retry_if_exception_type
+
+import requests  # Added import for handling HTTP Ollama requests
 
 # Define standard values
 STANDARD_TEXT_MODELS = [
@@ -480,6 +485,33 @@ STANDARD_VOICES = [
     "nova",
     "shimmer",
 ]
+
+# Function to get Ollama models
+def get_ollama_models(api_base="http://localhost:11434", api_path="/v1/models"):
+    api = api_base + api_path
+    try:
+        response = requests.get(api)
+        response.raise_for_status()
+        models_info = response.json()
+        logger.info(f"Retrieved models from Ollama API: {models_info}")
+        
+        if isinstance(models_info, dict) and "data" in models_info:
+            models = [model['id'] for model in models_info["data"] if "id" in model]
+        else:
+            # Handle unexpected data structures
+            logger.warning("Unexpected data format in Ollama API response.")
+            models = []
+        
+        return models
+    except requests.exceptions.RequestException as e:
+        logger.warning(f"Could not connect to Ollama API at {api_base}: {e}")
+        return []
+    except ValueError as e:
+        logger.warning(f"Failed to parse JSON from Ollama API at {api_base}: {e}")
+        return []
+    except KeyError as e:
+        logger.warning(f"Missing expected key in Ollama API response: {e}")
+        return []
 
 class DialogueItem(BaseModel):
     text: str
@@ -536,11 +568,17 @@ def generate_audio(
     edited_transcript: str = None,
     user_feedback: str = None,
     original_text: str = None,
-    debug = False,
 ) -> tuple:
-    # Validate API Key
-    if not os.getenv("OPENAI_API_KEY") and not openai_api_key:
-        raise gr.Error("OpenAI API key is required")
+    # Determine if the selected model is an Ollama model
+    if text_model.startswith('ollama/'):
+        if not api_base:
+            api_base = 'http://localhost:11434'
+    else:
+        # Use OpenAI API
+        if not openai_api_key:
+            openai_api_key = os.getenv("OPENAI_API_KEY")
+        if not openai_api_key:
+            raise gr.Error("OpenAI API key is required for non-Ollama models")
 
     combined_text = original_text or ""
 
@@ -588,9 +626,8 @@ def generate_audio(
     if edited_transcript_processed.strip()!='' or user_feedback_processed.strip()!='':
         user_feedback_processed="<requested_improvements>"+user_feedback_processed+"\n\n"+instruction_improve+"</requested_improvements>" 
     
-    if debug:
-        logger.info (edited_transcript_processed)
-        logger.info (user_feedback_processed)
+    logger.debug(edited_transcript_processed)
+    logger.debug(user_feedback_processed)
     
     # Generate the dialogue using the LLM
     llm_output = generate_dialogue(
@@ -619,9 +656,12 @@ def generate_audio(
             characters += len(line.text)
 
         for future, transcript_line in futures:
-            audio_chunk = future.result()
-            audio += audio_chunk
-            transcript += transcript_line + "\n\n"
+            try:
+                audio_chunk = future.result()
+                audio += audio_chunk
+                transcript += transcript_line + "\n\n"
+            except Exception as e:
+                logger.error(f"Error generating audio chunk: {e}")
 
     logger.info(f"Generated {characters} characters of audio")
 
@@ -652,6 +692,7 @@ def validate_and_generate_audio(*args):
         audio_file, transcript, original_text = generate_audio(*args)
         return audio_file, transcript, original_text, None  # Return None as the error when successful
     except Exception as e:
+        logger.error(f"An error occurred during audio generation: {e}")
         # If an error occurs during generation, return None for the outputs and the error message
         return None, None, None, str(e)
 
@@ -660,7 +701,7 @@ def edit_and_regenerate(edited_transcript, user_feedback, *args):
     #new_args = list(args)
     #new_args[-2] = edited_transcript  # Update edited transcript
     #new_args[-1] = user_feedback  # Update user feedback
-    return validate_and_generate_audio(*new_args)
+    return validate_and_generate_audio(*args)
 
 # New function to handle user feedback and regeneration
 def process_feedback_and_regenerate(feedback, *args):
@@ -748,7 +789,7 @@ with gr.Blocks(title="PDF to Audio", css="""
             api_base = gr.Textbox(
                 label="Custom API Base",
                 placeholder="Enter custom API base URL if using a custom/local model...",
-                info="If you are using a custom or local model, provide the API base URL here, e.g.: http://localhost:8080/v1 for llama.cpp REST server.",
+                info="If you are using a custom or local model, provide the API base URL here, e.g.: http://localhost:11434 for Ollama server or http://localhost:8080/v1 for llama.cpp REST server.",
             )
 
         with gr.Column(scale=3):
@@ -819,6 +860,50 @@ with gr.Blocks(title="PDF to Audio", css="""
         outputs=[intro_instructions, text_instructions, scratch_pad_instructions, prelude_dialog, podcast_dialog_instructions]
     )
     
+    # Update api_base when text_model changes
+    def update_api_base_on_model_change(text_model_value, api_base_value):
+        if text_model_value.startswith('ollama/') and not api_base_value:
+            return gr.update(value='http://localhost:11434')
+        else:
+            return gr.update()
+
+    text_model.change(
+        fn=update_api_base_on_model_change,
+        inputs=[text_model, api_base],
+        outputs=api_base
+    )
+
+    # Update text_model choices when api_base changes
+    def update_text_models_on_api_base_change(api_base_value):
+        standard_models = [
+            "o1-preview-2024-09-12",
+            "o1-preview",
+            "gpt-4o-2024-08-06",
+            "gpt-4o-mini",
+            "o1-mini-2024-09-12",
+            "o1-mini",
+            "chatgpt-4o-latest",
+            "gpt-4-turbo",
+            "openai/custom_model",
+        ]
+        # Get the Ollama models from the new api_base
+        if api_base_value:
+            ollama_models = get_ollama_models(api_base_value.rstrip('/'))
+            ollama_models = [f'ollama/{model}' for model in ollama_models]
+        else:
+            ollama_models = []
+        # Combine models
+        updated_models = standard_models + ollama_models
+        updated_models = list(set(updated_models))
+        # Return the updated dropdown choices
+        return gr.update(choices=updated_models)
+
+    api_base.change(
+        fn=update_text_models_on_api_base_change,
+        inputs=[api_base],
+        outputs=[text_model]
+    )
+
     submit_btn.click(
         fn=validate_and_generate_audio,
         inputs=[
