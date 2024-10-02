@@ -1,4 +1,9 @@
-/temp_data/*
-
-# secret env variables
+# Default gitignore stuff
+__pycache__/
+*.pyc
 .env
+venv/
+.vscode/
+
+# Additional dirs to ignore
+/temp_data/*

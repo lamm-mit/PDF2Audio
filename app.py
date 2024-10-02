@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import concurrent.futures as cf
 import glob
 import io
