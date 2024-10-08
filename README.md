@@ -10,7 +10,7 @@ This code can be used to convert PDFs into audio podcasts, lectures, summaries, 
 - Choose from different instruction templates (podcast, lecture, summary, etc.)
 - Customize text generation and audio models
 - Select different voices for speakers
-- Iterate on the draft via specific or general commments, and/or edits to the transcript and specific feedback to the model for improvements
+- Iterate on the draft via specific or general comments, and/or edits to the transcript and specific feedback to the model for improvements
 
 ## Use in Colab
 
