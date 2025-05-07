@@ -61,7 +61,7 @@ To run the PDF2Audio app:
 
 1. Ensure you're in the project directory and your Conda environment is activated:
    ```
-   conda activate pdf2audio
+conda activate pdf2audio
    ```
 
 2. Run the Python script that launches the Gradio interface:
@@ -72,6 +72,24 @@ To run the PDF2Audio app:
 3. Open your web browser and go to the URL provided in the terminal (typically `http://127.0.0.1:7860`).
 
 4. Use the Gradio interface to upload a PDF file and convert it to audio.
+
+## Using Docker
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t pdf2audio .
+   ```
+
+2. **Run the Docker container:**
+   ```bash
+   docker run -p 7860:7860 -e OPENAI_API_KEY=your_api_key_here pdf2audio
+   ```
+
+   - Replace `your_api_key_here` with your actual OpenAI API key.
+   - The `-p 7860:7860` mapping exposes port 7860 of the container to your host machine, allowing you to access the Gradio interface.
+
+3. **Access the Gradio interface:**
+   Open your web browser and go to `http://localhost:7860`.
 
 ## How to Use
 
